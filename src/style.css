@@ -1,0 +1,308 @@
+/* LoginPage.css */
+.main-name{
+    font-weight: bolder;
+    font-family: 'Courgette';
+}
+.login-page {
+    background-image: url('./img/mainbg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-option {
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  .role{
+    background: linear-gradient(to top, #64a4e0, #0d284f);
+  }
+  .role1{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: 60px;
+    margin-right: 60px;
+  }
+  
+/* title bar design  */
+.AlumniMS{
+    font-family: 'Courgette';
+    color:rgb(107, 38, 44);
+}
+/* main navbar styling */
+#navbar{
+    font-size: 15px;
+    background-color:rgb(33, 33, 65);
+    font-family: 'Courgette';
+}
+#collasible-nav-dropdown{
+    color:white;
+    font-size: 15px;
+    font-family: 'Courgette';
+}
+.loginbtn{
+    color: rgb(33, 33, 65);
+    border: 2px solid white;
+}
+.loginbtn:hover{
+    color: rgb(33, 33, 65);
+}
+.logoutbtn{
+    border: 2px solid white;
+    color: rgb(33, 33, 65);
+}
+.logoutbtn:hover{
+    color: rgb(33, 33, 65);
+}
+/* contactUS page */
+#contact{
+    max-height: 3000px;
+    border: 1px solid rgb(41, 41, 121);
+    background-color:rgb(34, 34, 218) ;
+    border-radius: 5px
+}
+.cn-submit{
+    color: rgb(33, 33, 65) ;
+}
+.contactform{
+  margin-left: 20px; 
+  color:white   
+}
+.sendmsg button{
+    color:rgb(33, 33, 65);
+}
+.c-name{
+    font-family: 'Courgette', cursive;
+}
+.cnt{
+    position: relative; 
+    background-image: url('C:\Users\HP\Desktop\React\AlumniMS\img\contactbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Raise Fund module */
+  *.raise-fund-container {
+    position: relative;
+    justify-content: centre;
+    align-items:center;
+    display:flex;
+    flex-direction: left;
+    margin-left: 0px;
+  
+  }
+  .paymentbox{
+    background-color:rgb(33, 33, 65); 
+    color: white;
+    border: 10px solid black;
+    font-size: larger;
+    font-Family:Courgette, cursive;
+    margin-left: 220px;
+    max-width: 500px;
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+  }
+  
+  .funds-image {
+    position: relative;
+    background-size:auto;
+    background-repeat: no-repeat;
+    width: 90vh;
+    height: 60vh;
+    margin-left: 50px;
+    overflow-x: hidden;
+    
+  }
+  /* .form-control{
+    width: 400px;
+} */
+/* home carousel */
+#carousel img{
+    width: 100%;
+    height: 480px;
+    overflow-y: hidden;
+}
+.fit-img{
+    object-fit: cover;
+}
+/* admin login */
+.AdminloginPage{
+    background: url(C:\Users\HP\Desktop\React\AlumniMS\img\loginbg.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+}
+.ad-login-btn{
+    font-size: 1.2rem;
+    width: 400px;
+}
+/* userlogin styling */
+.u-login{
+    background: url(C:\Users\HP\Desktop\React\AlumniMS\img\loginbg.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.u-form{
+    width:440px;
+}
+.signup{
+    background: url(C:\Users\HP\Desktop\React\AlumniMS\img\loginbg.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.signup-form{
+    width: 440px;
+}
+ /* home page about us section styling */
+ .aboutname h2{
+    color: rgb(33, 33, 65);
+    font-size:3rem;
+    font-family: 'Courgette', cursive;
+ }
+ #s-head h2{
+    color: rgb(33, 33, 65);
+    font-size: 3rem;
+    font-family: 'Courgette', cursive;
+ }
+
+/* admin dashboard side bar and navbar styling */
+.img1{
+    width:130px;
+    height:130px;
+    }
+    .img2{
+        width: 130px;
+        height:130px;
+        }
+.a-side{
+    margin-top: 1px;
+}
+.ad-nav{
+    background-color: rgb(33, 33, 65);
+}
+.sidebar{
+width: 300px;
+height: 100vh;
+background-color: rgb(33, 33, 65);
+}
+.side-nav-item li{
+    color: rgb(33, 33, 65);  
+}
+.content{
+    margin-left: 50px;
+    overflow: auto;
+    
+}
+.dbname{
+    color:rgb(4, 4, 153);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* about us home page */
+.section img{
+    height: 420px;
+    width: 600px;
+}
+
+/* slider styling  */
+.slider{
+    background: url(C:\Users\HP\Desktop\React\AlumniMS\img\sliderbg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: top;
+    background-position-x: center;
+}
+.card1 {
+    padding: 100px;
+}
+.card2 {
+    padding: 100px;
+}
+.card3 {
+    padding: 100px;
+}
+.card4 {
+    padding: 100px;
+}
+
+/* accordion */
+#faqs h2{
+    color: rgb(33, 33, 65);
+    font-size: 3rem;
+    font-family: 'Courgette', cursive;
+ }
+
+ /* HomePage footer */
+ .footer{
+    background-color:rgb(33, 33, 65); 
+ }
+
+ /* past events header */
+ .event-header{
+    font-family: 'Courgette', cursive;
+    color:rgb(46, 46, 102);
+ }
+
+ /* jobs hirings */
+ .jobcontainer{
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .post-job-button {
+    margin-bottom: 30px;
+  }
+  .job-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .job-list li {
+    margin-bottom: 50px;
+  }
+  /* announcement container */
+ .Announcement-container{
+  
+    padding: 20px;
+   }
+   .ann-card {
+    background-color:rgb(33, 33, 65);
+    color: white;
+    border: none;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+  /* feedback page */
+  .feedback-form{ 
+    background-image: url('img/feedbackbg.jpg'); /* Set the path to your background image */
+  background-size: cover; /* Scale the image to cover the entire container */
+  background-repeat: no-repeat; /* Prevent image repetition */
+  background-position: center; /* Center the image */
+  min-height: 100vh; /* Set a minimum height to fill the entire viewport */
+  }
+
+  .meeting{ 
+    background-image: url('img/meetingsbg.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  min-height: 100vh;}
