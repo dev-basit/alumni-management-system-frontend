@@ -10,24 +10,18 @@ const userApiEndpoint = baseURL + "users";
 const newUserSchema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
   email: Joi.string()
-    .min(5)
+    .min(3)
     .max(255)
     .required()
     .email({ tlds: { allow: false } }),
-  password: Joi.string()
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8}$/)
-    .required()
-    .messages({
-      "string.pattern.base": "Password must be atleast 8 characters long and alphanumeic",
-    }),
-  userType: Joi.string().valid("buyer", "seller").required(),
-  profilePicture: Joi.string().required(),
+  password: Joi.string().required(),
+  // profilePicture: Joi.string().required(),
 });
 
 async function addNewUser(user) {
   try {
     const response = await http.post(userApiEndpoint, { ...user });
-    setLocalStorageItem("token", response.headers["x-auth-token"]);
+    // setLocalStorageItem("token", response.headers["x-auth-token"]);
     showSuccessToaster("Successfuly created new account!");
     return true;
   } catch (err) {
