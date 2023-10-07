@@ -20,6 +20,7 @@ import {
   FaHeart,
   FaAddressCard,
 } from "react-icons/fa";
+import { auth } from "./services/authService";
 <style>@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');</style>;
 
 function HomePage() {
@@ -90,11 +91,11 @@ function HomePage() {
             </Nav>
             <Nav>
               <Button
-                href="./logout"
-                type="submit"
+                // type="submit"
                 className=" btn btn-light border-rounded bg-white text-dark"
+                onClick={() => auth.logout()}
               >
-                Logout{" "}
+                Logout
               </Button>
             </Nav>
           </Navbar.Collapse>

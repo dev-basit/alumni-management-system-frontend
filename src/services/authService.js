@@ -33,7 +33,8 @@ async function login(user) {
 }
 
 function logout() {
-  removeLocalStorageItem(tokenKey);
+  // removeLocalStorageItem(tokenKey);
+  localStorage.clear();
   window.location = "/";
   return;
 }
