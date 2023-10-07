@@ -16,6 +16,7 @@ import {
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { auth } from "./services/authService";
 
 const RaiseFundComponent = () => {
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -91,11 +92,10 @@ const RaiseFundComponent = () => {
             </Nav>
             <Nav>
               <Button
-                href="./logout"
-                type="submit"
                 className=" btn btn-light border-rounded bg-white text-dark"
+                onClick={() => auth.logout()}
               >
-                Logout{" "}
+                Logout
               </Button>
             </Nav>
           </Navbar.Collapse>
