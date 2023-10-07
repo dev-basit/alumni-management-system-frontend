@@ -7,6 +7,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Button, Modal, Form, Container, Card } from "react-bootstrap";
+import { auth } from "./services/authService";
 
 const JobHiringComponent = () => {
   const [jobs, setJobs] = useState([
@@ -201,11 +202,10 @@ const JobHiringComponent = () => {
             </Nav>
             <Nav>
               <Button
-                href="./logout"
-                type="submit"
                 className=" btn btn-light border-rounded bg-white text-dark"
+                onClick={() => auth.logout()}
               >
-                Logout{" "}
+                Logout
               </Button>
             </Nav>
           </Navbar.Collapse>

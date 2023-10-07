@@ -1,14 +1,14 @@
-
 // src/FeedbackForm.js
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Container from 'react-bootstrap/Container';
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Container from "react-bootstrap/Container";
+import { auth } from "./services/authService";
 
 const FeedbackForm = () => {
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   const handleFeedbackChange = (e) => {
     setFeedback(e.target.value);
@@ -17,102 +17,117 @@ const FeedbackForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can send the feedback to your server or perform any desired action here
-    console.log('Feedback submitted:', feedback);
+    console.log("Feedback submitted:", feedback);
   };
-  
 
   return (
-
-    <div className='feedback-form'>
-        <Navbar className="nav1 sticky-top bg-light">
-    <Container className='d-flex w-100 justify-content-center align-items-center'>
-      <Navbar.Brand className='AlumniMS'>
-        <img src="img/nav-logo.jpg" width={30} height={30} alt="" className="img-fluid rounded me-3 d-inline-block" />
-        <strong className='fs-4'>Alumni Management System</strong>
-        <img src="img/nav-logo.jpg" width={30} height={30} alt="" className="img-fluid rounded mx-3 d-inline-block" />
-        </Navbar.Brand>
-    </Container>
-  </Navbar>
-    <Navbar collapseOnSelect expand="lg" id='navbar' className="fixed-top " style={{ marginTop: '56px' }}>
-      <Container>
-        <Navbar.Brand href="#home" className='navname text-white h1 p-3 m-0'><strong><em>AlumifyConnect</em></strong></Navbar.Brand>
-        <Navbar.Toggle className='bg-white'  aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto ">
-            <Nav.Link href="#Home" className='text-white'>Home</Nav.Link>
-            <Nav.Link href="#aboutid" className='text-white'>About Us</Nav.Link>
-            <Nav.Link href="./AdminMeetings" className='text-white'>Meetings</Nav.Link>
-            <Nav.Link href="./Announcements" className='text-white'>Announcements</Nav.Link>
-            {/* <Nav.Link href="./Gallery" className='text-white'>Gallery</Nav.Link> */}
-            <Nav.Link href="./RaiseFund" className='text-white'>RaiseFunds</Nav.Link>
-            <Nav.Link href="./ContactUs" className='text-white'>Contact Us</Nav.Link>
-            <NavDropdown title="More" id="collasible-nav-dropdown" >
-            <NavDropdown.Item href="./events">Events</NavDropdown.Item>
-              <NavDropdown.Item href="./Jobhiring">Job hirings</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="./feedback">Forum</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav>
-          <Button href="./logout" type='submit' className=' btn btn-light border-rounded bg-white text-dark'>
-                Logout </Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-<br />
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="feedback">
-        <Form.Label className='h1 d-flex justify-content-center align-items-center text-white' style={{ marginTop: '50px' }}>Feedback</Form.Label>
-        <Form.Control 
-         as="textarea"
-         rows={8}
-        placeholder="Enter your feedback ...."
-        value={feedback}
-        onChange={handleFeedbackChange}
-        className=" mt-5 w-50 mx-auto text-center d-flex justify-content-center" // This makes the textarea width 100% of its container
-        // style={{ resize: 'none' }}
-        />
-      </Form.Group>
-      <Button className='feed-btn mx-auto text-center d-flex justify-content-center mt-4' variant="success" type="submit">
-        Submit Feedback
-      </Button>
-    </Form>
+    <div className="feedback-form">
+      <Navbar className="nav1 sticky-top bg-light">
+        <Container className="d-flex w-100 justify-content-center align-items-center">
+          <Navbar.Brand className="AlumniMS">
+            <img
+              src="img/nav-logo.jpg"
+              width={30}
+              height={30}
+              alt=""
+              className="img-fluid rounded me-3 d-inline-block"
+            />
+            <strong className="fs-4">Alumni Management System</strong>
+            <img
+              src="img/nav-logo.jpg"
+              width={30}
+              height={30}
+              alt=""
+              className="img-fluid rounded mx-3 d-inline-block"
+            />
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        id="navbar"
+        className="fixed-top "
+        style={{ marginTop: "56px" }}
+      >
+        <Container>
+          <Navbar.Brand href="#home" className="navname text-white h1 p-3 m-0">
+            <strong>
+              <em>AlumifyConnect</em>
+            </strong>
+          </Navbar.Brand>
+          <Navbar.Toggle className="bg-white" aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto ">
+              <Nav.Link href="#Home" className="text-white">
+                Home
+              </Nav.Link>
+              <Nav.Link href="#aboutid" className="text-white">
+                About Us
+              </Nav.Link>
+              <Nav.Link href="./AdminMeetings" className="text-white">
+                Meetings
+              </Nav.Link>
+              <Nav.Link href="./Announcements" className="text-white">
+                Announcements
+              </Nav.Link>
+              {/* <Nav.Link href="./Gallery" className='text-white'>Gallery</Nav.Link> */}
+              <Nav.Link href="./RaiseFund" className="text-white">
+                RaiseFunds
+              </Nav.Link>
+              <Nav.Link href="./ContactUs" className="text-white">
+                Contact Us
+              </Nav.Link>
+              <NavDropdown title="More" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="./events">Events</NavDropdown.Item>
+                <NavDropdown.Item href="./Jobhiring">Job hirings</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="./feedback">Forum</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Nav>
+              <Button
+                className=" btn btn-light border-rounded bg-white text-dark"
+                onClick={() => auth.logout()}
+              >
+                Logout
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <br />
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="feedback">
+          <Form.Label
+            className="h1 d-flex justify-content-center align-items-center text-white"
+            style={{ marginTop: "50px" }}
+          >
+            Feedback
+          </Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={8}
+            placeholder="Enter your feedback ...."
+            value={feedback}
+            onChange={handleFeedbackChange}
+            className=" mt-5 w-50 mx-auto text-center d-flex justify-content-center" // This makes the textarea width 100% of its container
+            // style={{ resize: 'none' }}
+          />
+        </Form.Group>
+        <Button
+          className="feed-btn mx-auto text-center d-flex justify-content-center mt-4"
+          variant="success"
+          type="submit"
+        >
+          Submit Feedback
+        </Button>
+      </Form>
     </div>
   );
 };
 
 export default FeedbackForm;
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from 'react';
 // import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';

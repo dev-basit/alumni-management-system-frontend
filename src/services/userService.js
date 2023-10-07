@@ -51,9 +51,18 @@ async function userDetails(id) {
   }
 }
 
-async function getAllArtists() {
+async function getAllusers() {
   try {
-    return await http.get(userApiEndpoint + "/artists");
+    return await http.get(userApiEndpoint);
+  } catch (err) {
+    showFailureToaster(err.data.errorMessage);
+    return false;
+  }
+}
+
+async function removeUser(id) {
+  try {
+    return await http.delete(userApiEndpoint + "/" + id);
   } catch (err) {
     showFailureToaster(err.data.errorMessage);
     return false;
@@ -64,6 +73,7 @@ export const userService = {
   newUserSchema,
   addNewUser,
   getMyDetails,
-  getAllArtists,
+  getAllusers,
   userDetails,
+  removeUser,
 };
