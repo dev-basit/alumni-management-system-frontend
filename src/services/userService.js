@@ -8,9 +8,9 @@ import { auth } from "./authService";
 const userApiEndpoint = baseURL + "users";
 
 const newUserSchema = Joi.object({
-  name: Joi.string().min(3).max(50).required(),
+  name: Joi.string().min(2).max(50).required(),
   email: Joi.string()
-    .min(3)
+    .min(2)
     .max(255)
     .required()
     .email({ tlds: { allow: false } }),

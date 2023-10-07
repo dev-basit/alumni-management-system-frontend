@@ -11,11 +11,11 @@ const tokenKey = "token";
 
 const userLoginSchema = Joi.object({
   email: Joi.string()
-    .min(5)
+    .min(2)
     .max(255)
     .required()
     .email({ tlds: { allow: false } }),
-  password: Joi.string().min(4).max(1024).required(),
+  password: Joi.string().min(2).max(1024).required(),
 });
 
 http.setJwt(getJwt());
@@ -34,7 +34,7 @@ async function login(user) {
 
 function logout() {
   removeLocalStorageItem(tokenKey);
-  window.location = "/login";
+  window.location = "/";
   return;
 }
 
