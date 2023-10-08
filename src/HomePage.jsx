@@ -91,7 +91,6 @@ function HomePage() {
             </Nav>
             <Nav>
               <Button
-                // type="submit"
                 className=" btn btn-light border-rounded bg-white text-dark"
                 onClick={() => auth.logout()}
               >
