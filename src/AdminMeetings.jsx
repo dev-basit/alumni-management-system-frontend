@@ -1,30 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
 import { Form, Button, Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { meetingService } from "./services/meetingService";
 
 const MeetingApp = () => {
   const [meetings, setMeetings] = useState([]);
   const [meeting, setMeeting] = useState({ title: "", date: "", description: "" });
   const [editingIndex, setEditingIndex] = useState(-1); // -1 means no meeting is currently being edited
 
+  useEffect(() => {
+    fetchAllMeetings();
+  }, []);
+
+  const fetchAllMeetings = async () => {
+    const meetings = await meetingService.getAllMeetings();
+    // let data = meetings.data.map((item) => ({
+    //   title: item.title,
+    //   description: item.description,
+    //   // date: moment.unix(item.date).format("YYYY-MM-DD"),
+    //   date: item.date,
+    // }));
+
+    setMeetings(meetings.data);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setMeeting({ ...meeting, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e, id) => {
     e.preventDefault();
 
     if (editingIndex === -1) {
       // Add a new meeting
       setMeetings([...meetings, meeting]);
+      await meetingService.addMeeting(meeting);
     } else {
       // Update an existing meeting
-      meetings[editingIndex] = meeting;
-      setMeetings([...meetings]);
+      await meetingService.updateMeeting(meeting._id, {
+        title: meeting.title,
+        description: meeting.description,
+        date: meeting.date,
+      });
+      fetchAllMeetings();
+
+      // meetings[editingIndex] = meeting;
+      // setMeetings([...meetings]);
       setEditingIndex(-1); // Reset the editing index
     }
 
@@ -38,11 +64,17 @@ const MeetingApp = () => {
     setEditingIndex(index);
   };
 
-  const handleDelete = (index) => {
-    // Remove the meeting from the list
-    const updatedMeetings = [...meetings];
-    updatedMeetings.splice(index, 1);
-    setMeetings(updatedMeetings);
+  const handleDelete = async (id) => {
+    try {
+      await meetingService.removeMeeting(id);
+      fetchAllMeetings();
+      // Remove the meeting from the list
+      // const updatedMeetings = [...meetings];
+      // updatedMeetings.splice(index, 1);
+      // setMeetings(updatedMeetings);
+    } catch (error) {
+      //
+    }
   };
 
   return (
@@ -147,7 +179,7 @@ const MeetingApp = () => {
                   <Button className="mx-2 me-2" variant="info" onClick={() => handleEdit(index)}>
                     Edit
                   </Button>
-                  <Button className="mx-2 me-2" variant="danger" onClick={() => handleDelete(index)}>
+                  <Button className="mx-2 me-2" variant="danger" onClick={() => handleDelete(item._id)}>
                     Delete
                   </Button>
                 </td>
