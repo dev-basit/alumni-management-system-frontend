@@ -15,8 +15,13 @@ function UserLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.getCurrentUserDetails()) navigate("/HomePage");
-  }, [user]);
+    const userDetails = auth.getCurrentUserDetails();
+
+    if (userDetails) {
+      if (userDetails.isAdmin) navigate("/admindashboard");
+      else navigate("/HomePage");
+    }
+  }, []);
 
   const handleChange = (e) => {
     setUser((prev) => {
