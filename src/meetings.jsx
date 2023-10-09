@@ -1,10 +1,81 @@
-import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Button, Form, Table } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { auth } from "./services/authService";
-const MeetingList = ({ meetings }) => {
+import { meetingService } from "./services/meetingService";
+
+const MeetingList = () => {
+  const [meetings, setMeetings] = useState([]);
+  const [meeting, setMeeting] = useState({ title: "", date: "", description: "" });
+  const [editingIndex, setEditingIndex] = useState(-1); // -1 means no meeting is currently being edited
+
+  useEffect(() => {
+    fetchAllMeetings();
+  }, []);
+
+  const fetchAllMeetings = async () => {
+    const meetings = await meetingService.getAllMeetings();
+    // let data = meetings.data.map((item) => ({
+    //   title: item.title,
+    //   description: item.description,
+    //   // date: moment.unix(item.date).format("YYYY-MM-DD"),
+    //   date: item.date,
+    // }));
+
+    setMeetings(meetings.data);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setMeeting({ ...meeting, [name]: value });
+  };
+
+  const handleSubmit = async (e, id) => {
+    e.preventDefault();
+
+    if (editingIndex === -1) {
+      // Add a new meeting
+      setMeetings([...meetings, meeting]);
+      await meetingService.addMeeting(meeting);
+    } else {
+      // Update an existing meeting
+      await meetingService.updateMeeting(meeting._id, {
+        title: meeting.title,
+        description: meeting.description,
+        date: meeting.date,
+      });
+      fetchAllMeetings();
+
+      // meetings[editingIndex] = meeting;
+      // setMeetings([...meetings]);
+      setEditingIndex(-1); // Reset the editing index
+    }
+
+    // Clear the form
+    setMeeting({ title: "", date: "", description: "" });
+  };
+
+  const handleEdit = (index) => {
+    // Load the meeting details into the form for editing
+    setMeeting(meetings[index]);
+    setEditingIndex(index);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await meetingService.removeMeeting(id);
+      fetchAllMeetings();
+      // Remove the meeting from the list
+      // const updatedMeetings = [...meetings];
+      // updatedMeetings.splice(index, 1);
+      // setMeetings(updatedMeetings);
+    } catch (error) {
+      //
+    }
+  };
+
   return (
     <div>
       <Navbar className="nav1 sticky-top bg-light">
@@ -81,6 +152,76 @@ const MeetingList = ({ meetings }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Container>
+        <div>
+          <h2 className="h1 text-white text-center mt-5">Meeting Schedules</h2>
+        </div>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="title">
+            <Form.Label className="text-white fs-5 mb-1">Title</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={meeting.title}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="date">
+            <Form.Label className="text-white fs-5 mb-1">Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="date"
+              value={meeting.date}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label className="text-white fs-5 mb-1">Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="description"
+              value={meeting.description}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Button className="mt-4 mb-3 text-white" variant="primary" type="submit">
+            {editingIndex === -1 ? "Add Meeting" : "Update Meeting"}
+          </Button>
+        </Form>
+
+        <h2 className="text-white h1">Meetings</h2>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {meetings.map((item, index) => (
+              <tr key={index}>
+                <td>{item.title}</td>
+                <td>{item.date}</td>
+                <td>{item.description}</td>
+                <td>
+                  <Button className="mx-2 me-2" variant="info" onClick={() => handleEdit(index)}>
+                    Edit
+                  </Button>
+                  <Button className="mx-2 me-2" variant="danger" onClick={() => handleDelete(item._id)}>
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
     </div>
   );
 };

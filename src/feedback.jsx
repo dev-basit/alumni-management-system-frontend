@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import { auth } from "./services/authService";
+import { feedbackService } from "./services/feedbackService";
 
 const FeedbackForm = () => {
   const [feedback, setFeedback] = useState("");
@@ -14,10 +15,16 @@ const FeedbackForm = () => {
     setFeedback(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await feedbackService.addFeedback(feedback);
+      setFeedback("");
+    } catch (error) {
+      //
+    }
     // You can send the feedback to your server or perform any desired action here
-    console.log("Feedback submitted:", feedback);
   };
 
   return (
