@@ -24,10 +24,16 @@ async function login(user) {
   try {
     const response = await http.post(loginApiEndpoint, { ...user });
     setLocalStorageItem(tokenKey, response.data.jwt);
+
+    const loggedInUser = getCurrentUserDetails();
+    if (loggedInUser.isAdmin) setLocalStorageItem("userType", "admin");
+    else setLocalStorageItem("userType", "alumni");
+
     showSuccessToaster("Successfuly Logged In!");
     return true;
   } catch (err) {
-    showFailureToaster(err.data.errorMessage);
+    console.log("ressss ", err);
+    showFailureToaster(err.data.message);
     return false;
   }
 }

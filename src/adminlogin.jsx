@@ -43,15 +43,15 @@ function AdminLogin() {
     try {
       const isLogin = await auth.login({ ...user });
       // if (isLogin) navigate("/HomePage");
+      if (isLogin) {
+        const userDetails = await auth.getCurrentUserDetails();
+        // setLocalStorageItem("userType", userDetails.isAdmin);
 
-      const userDetails = await auth.getCurrentUserDetails();
-      console.log("userDetails", userDetails);
-      setLocalStorageItem("userType", userDetails.isAdmin);
+        if (userDetails.isAdmin) navigate("/admindashboard");
+        else navigate("/HomePage");
 
-      if (userDetails.isAdmin) navigate("/admindashboard");
-      else navigate("/HomePage");
-
-      // setUser({ name: "", email: "", password: "", userType: "" });
+        // setUser({ name: "", email: "", password: "", userType: "" });
+      }
     } catch (error) {
       //
     }

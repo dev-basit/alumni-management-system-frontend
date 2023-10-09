@@ -42,8 +42,7 @@ function UserLogin() {
       // if (isLogin) navigate("/HomePage");
 
       const userDetails = await auth.getCurrentUserDetails();
-      console.log("userDetails", userDetails);
-      setLocalStorageItem("userType", userDetails.isAdmin);
+      // setLocalStorageItem("userType", userDetails.isAdmin);
 
       if (userDetails.isAdmin) navigate("/admindashboard");
       else navigate("/HomePage");

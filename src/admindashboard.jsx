@@ -83,7 +83,7 @@ function AdminDashboard() {
             </a>
           </li>
           <br />
-          <div onClick={() => auth.logout()}>
+          <div onClick={() => auth.logout()} style={{ cursor: "pointer" }}>
             <li className="side-nav-item text-dark">
               <a className="navlink text-white p-1 ">
                 <FiLogOut /> <span className="mx-2"> Logout </span>
@@ -110,12 +110,14 @@ function AdminDashboard() {
               </h2>
             </div>
             <div className="col-md-3 col text-white bg-danger d-flex justify-content-around px-3 py-3 rounded">
-              <h2 className="mt-3 ">
-                Feedback
-                <span className="mt-3 mx-5">
-                  <FaComment />
-                </span>
-              </h2>
+              <a href="./view-feedback" className="h2 mt-3 h">
+                <h2 className="mt-3 ">
+                  Feedback
+                  <span className="mt-3 mx-5">
+                    <FaComment />
+                  </span>
+                </h2>
+              </a>
             </div>
           </div>
         </div>
