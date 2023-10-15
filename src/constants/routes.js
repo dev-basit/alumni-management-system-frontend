@@ -15,6 +15,7 @@ import JobHiringComponent from "../Jobhiring";
 import Systemlogout from "../logout";
 import FeedbackForm from "../feedback";
 import ViewFeedback from "../view-feedback";
+import ForgotPassword from "../forgotPassword";
 
 export const navbarItems = [];
 
@@ -38,6 +39,11 @@ export const links = [
   {
     path: "/userlogin",
     component: UserLogin,
+    permissions: ["admin", "alumni"],
+  },
+  {
+    path: "/forgotPassword",
+    component: ForgotPassword,
     permissions: ["admin", "alumni"],
   },
   {
