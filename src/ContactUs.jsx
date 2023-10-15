@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 // import "bootstrap-icons/font/bootstrap-icons.css";
 import {
@@ -15,8 +16,26 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { auth } from "./services/authService";
+import emailjs from "@emailjs/browser";
 
 function Contactus() {
+  const form = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm("service_f53afv6", "template_yluq3gc", form.current, "cD-MQ4A7msGnFvZgY").then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+
+    e.target.reset();
+  };
+
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" id="navbar" className="fixed-top ">
@@ -72,18 +91,18 @@ function Contactus() {
           <h2 className="c-name text-center text-white mt-5">Contact Us</h2>
           <h4 className="c-name m-2 text-white text-center">Feel free to ask anything!</h4>
         </div>
-        <div className="section mt-5">
+        <form className="section mt-5" ref={form} onSubmit={handleSubmit}>
           <Row className="justify-content-center align-items-center d-flex">
             <Col md={12} lg={6}>
               <div className="c-form p-4">
                 <div className="contactname form-group text-white">
-                  <label htmlFor="Name">
+                  <label htmlFor="name">
                     <strong>Full Name</strong>
                   </label>
                   <input
                     type="text"
                     placeholder="Enter Your Name"
-                    name="Name"
+                    name="name"
                     className="con-width form-control rounded"
                     autoComplete="off"
                   />
@@ -109,7 +128,7 @@ function Contactus() {
                     <strong>Your Message</strong>
                   </label>
                   <textarea
-                    name=""
+                    name="message"
                     id=""
                     cols="20"
                     rows="6"
@@ -121,13 +140,13 @@ function Contactus() {
                 <br />
 
                 <div className="contactlinkid form-group text-white">
-                  <label htmlFor="LinkdIn Profile">
+                  <label htmlFor="LinkdInProfile">
                     <strong>Your LinkedIn Profile</strong>
                   </label>
                   <input
                     type="text"
                     placeholder="Enter Your LinkedIn ID"
-                    name="LinkdIn Profile"
+                    name="LinkdInProfile"
                     className="form-control rounded"
                   />
                 </div>
@@ -220,7 +239,7 @@ function Contactus() {
               </div>
             </Col>
           </Row>
-        </div>{" "}
+        </form>{" "}
         <br /> <br /> <br />
         <div className="footer mt-3">
           <footer className="text-light py-4">

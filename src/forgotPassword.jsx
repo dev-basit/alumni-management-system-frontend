@@ -5,12 +5,13 @@ import "./style.css";
 import "./index.css";
 import { auth } from "./services/authService";
 import { showFailureToaster } from "./utils/toaster";
-import { setLocalStorageItem } from "./utils/localStorage";
+import { userService } from "./services/userService";
 
-function UserLogin() {
+function ForgotPassword() {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
 
@@ -32,22 +33,14 @@ function UserLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("userloginhandleSubmit");
-
-    const { error } = auth.userLoginSchema.validate(user);
-    if (error) return showFailureToaster(error.message);
-
     try {
-      const isLogin = await auth.login({ ...user });
-      // if (isLogin) navigate("/HomePage");
+      const { error } = userService.resetPasswordSchema.validate(user);
+      if (error) return showFailureToaster(error.message);
 
-      const userDetails = await auth.getCurrentUserDetails();
-      // setLocalStorageItem("userType", userDetails.isAdmin);
+      if (user.password !== user.confirmPassword)
+        return showFailureToaster("Confirm password is not same.");
 
-      if (userDetails.isAdmin) navigate("/admindashboard");
-      else navigate("/HomePage");
-
-      // setUser({ name: "", email: "", password: "", userType: "" });
+      await userService.resetPassword({ ...user });
     } catch (error) {
       //
     }
@@ -88,12 +81,20 @@ function UserLogin() {
               required
             ></input>
           </div>
-          <div>
-            <input type="checkbox" className="custom-control custom-checkbox" id="check" />
-            <label htmlFor="check" className="custom-input-label">
-              Remember Me
-            </label>
+          <div className="mb-2">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              className="form-control border-rounded"
+              placeholder="Confirm Password"
+              onChange={handleChange}
+              autoComplete="confirmPassword"
+              required
+            ></input>
           </div>
+
           <br />
           <div className="d-grid">
             <Button
@@ -105,17 +106,14 @@ function UserLogin() {
               className="ad-login-btn btn btn-light border-rounded text-white w-100 mt-3"
               onClick={handleSubmit}
             >
-              Sign In
+              Change Password
             </Button>
           </div>
           <br />
-          <p className="text-right">
-            <a href="./forgotPassword"> Forgot Password? </a> <br />
-          </p>
           <p>
             New Member?
-            <a className="mx-3" href="./signup">
-              Sign up
+            <a className="mx-3" href="/">
+              Sign in
             </a>
           </p>
         </form>
@@ -124,4 +122,4 @@ function UserLogin() {
   );
 }
 
-export default UserLogin;
+export default ForgotPassword;

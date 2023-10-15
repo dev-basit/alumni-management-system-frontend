@@ -18,6 +18,16 @@ const newUserSchema = Joi.object({
   // profilePicture: Joi.string().required(),
 });
 
+const resetPasswordSchema = Joi.object({
+  email: Joi.string()
+    .min(2)
+    .max(255)
+    .required()
+    .email({ tlds: { allow: false } }),
+  password: Joi.string().min(2).max(1024).required(),
+  confirmPassword: Joi.string().min(2).max(1024).required(),
+});
+
 async function addNewUser(user) {
   try {
     const response = await http.post(userApiEndpoint, { ...user });
@@ -69,11 +79,23 @@ async function removeUser(id) {
   }
 }
 
+async function resetPassword(user) {
+  try {
+    await http.put(userApiEndpoint, { ...user });
+    showSuccessToaster("Successfully reset password");
+    window.location = "/";
+  } catch (err) {
+    showFailureToaster(err.data.message);
+  }
+}
+
 export const userService = {
   newUserSchema,
+  resetPasswordSchema,
   addNewUser,
   getMyDetails,
   getAllusers,
   userDetails,
   removeUser,
+  resetPassword,
 };
