@@ -32,7 +32,6 @@ async function login(user) {
     showSuccessToaster("Successfuly Logged In!");
     return true;
   } catch (err) {
-    console.log("ressss ", err);
     showFailureToaster(err.data.message);
     return false;
   }
